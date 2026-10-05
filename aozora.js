@@ -48,31 +48,95 @@
     pg.querySelector('.page__inner').appendChild(a);
   });
 
-  // 路線図：停留所＝ページ。表示中のページへバスが進む
-  const route = document.createElement('div');
-  route.className = 'route';
-  route.setAttribute('aria-hidden', 'true');
-  route.innerHTML = '<i class="route__line"></i>';
-  const stops = content.map((pg, k) => {
-    const s = document.createElement('i');
-    s.className = 'route__stop';
-    s.style.left = (content.length > 1 ? (k / (content.length - 1)) * 100 : 0) + '%';
-    route.appendChild(s);
-    return s;
+  // Z型の道：中身のかたまりのすき間を縫って、右へ左へ折り返す。ページの終点＝次のページの始点の側
+  // ページが切り替わるたびに、バスがその道を下へ走る（スクロール量には連動しない）
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const tracks = content.map((pg) => {
+    const svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('class', 'track');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.innerHTML = '<path class="track__road"/><path class="track__dash"/><path class="track__measure" fill="none" stroke="none"/>'
+      + '<g class="track__bus"><g class="track__flip"><use href="#buschar" x="-25" y="-30" width="50" height="35"/></g></g>';
+    pg.insertBefore(svg, pg.firstChild);
+    return { pg, svg, road: svg.querySelector('.track__road'), dash: svg.querySelector('.track__dash'), bus: svg.querySelector('.track__bus'), flip: svg.querySelector('.track__flip'), measure: svg.querySelector('.track__measure'), len: 0, stop: 0, raf: 0 };
   });
-  const bus = document.createElement('b');
-  bus.className = 'route__bus';
-  bus.innerHTML = '<svg viewBox="0 0 100 70"><use href="#buschar"/></svg>';
-  route.appendChild(bus);
-  column.appendChild(route);
+  const LANE = 11, R = 18;
+  const build = () => {
+    let lane = 0;
+    tracks.forEach((t) => {
+      const inner = t.pg.querySelector('.page__inner');
+      const W = t.pg.clientWidth, H = t.pg.clientHeight;
+      if (!W || !H) return;
+      const head = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 60;
+      const blocks = [...inner.children].filter((el) => !el.classList.contains('nextstop') && el.offsetHeight > 0);
+      const gaps = [];
+      for (let i = 0; i < blocks.length - 1; i++) {
+        const lo = blocks[i].offsetTop + blocks[i].offsetHeight, hi = blocks[i + 1].offsetTop;
+        gaps.push(inner.offsetTop + (lo + hi) / 2);
+      }
+      const xs = [LANE, W - LANE];
+      let x = xs[lane];
+      let d = `M${x} ${head - 6}`;
+      gaps.forEach((g) => {
+        const nx = xs[1 - lane], dir = Math.sign(nx - x);
+        d += ` V${g - R} Q${x} ${g} ${x + dir * R} ${g} H${nx - dir * R} Q${nx} ${g} ${nx} ${g + R}`;
+        x = nx; lane = 1 - lane;
+      });
+      // 最後のかたまりの下を横切り、反対側から下へ抜ける。バスは横切る道の真ん中で止まる
+      const last = blocks[blocks.length - 1];
+      const lastBottom = inner.offsetTop + last.offsetTop + last.offsetHeight;
+      const ns = inner.querySelector('.nextstop');
+      // 札があれば札と同じ高さを横切り、バスは札の左側に止まる（かたまりに触れない）
+      const yEnd = ns ? inner.offsetTop + ns.offsetTop + ns.offsetHeight / 2 + 10 : Math.min(lastBottom + 48, H - 30);
+      const nx = xs[1 - lane], dir = Math.sign(nx - x);
+      const mid = ns ? Math.min(inner.offsetLeft + ns.offsetLeft - 40, W * 0.32) : (x + nx) / 2;
+      const dStop = d + ` V${yEnd - R} Q${x} ${yEnd} ${x + dir * R} ${yEnd} H${mid}`;
+      d += ` V${yEnd - R} Q${x} ${yEnd} ${x + dir * R} ${yEnd} H${nx - dir * R} Q${nx} ${yEnd} ${nx} ${yEnd + R} V${H}`;
+      lane = 1 - lane;
+      t.svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      t.road.setAttribute('d', d);
+      t.dash.setAttribute('d', d);
+      t.len = t.road.getTotalLength();
+      t.measure.setAttribute('d', dStop);
+      t.stop = t.measure.getTotalLength();
+      place(t, t.pg.classList.contains('is-active') ? t.stop : 0);
+    });
+  };
+  const place = (t, at) => {
+    const p = t.road.getPointAtLength(at);
+    const q = t.road.getPointAtLength(Math.min(t.len, at + 2));
+    const p0 = t.road.getPointAtLength(Math.max(0, at - 2));
+    const dx = q.x - p0.x;
+    t.bus.setAttribute('transform', `translate(${p.x.toFixed(1)} ${p.y.toFixed(1)})`);
+    if (Math.abs(dx) > 0.5) t.flip.setAttribute('transform', dx < 0 ? 'scale(-1 1)' : '');
+  };
+  const run = (t) => {
+    cancelAnimationFrame(t.raf);
+    const end = t.stop;
+    if (reduceMotion || !t.len) { place(t, end); return; }
+    const t0 = performance.now(), dur = 2600;
+    const ease = (u) => (u < 0.5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2);
+    const step = (now) => {
+      const u = Math.min(1, (now - t0 - 250) / dur);
+      place(t, u <= 0 ? 0 : end * ease(u));
+      if (u < 1) t.raf = requestAnimationFrame(step);
+    };
+    t.raf = requestAnimationFrame(step);
+  };
+  build();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(build);
+  window.addEventListener('resize', build);
+  window.addEventListener('load', build);
 
+  let last = null;
   const onActive = () => {
     const pg = pages.find((p) => p.classList.contains('is-active')) || pages[0];
     column.dataset.page = pg.id;
-    const k = content.indexOf(pg);
-    if (k < 0) return;
-    bus.style.left = stops[k].style.left;
-    stops.forEach((s, j) => s.classList.toggle('is-past', j <= k));
+    if (pg === last) return;
+    last = pg;
+    const t = tracks.find((x) => x.pg === pg);
+    tracks.forEach((x) => { if (x !== t) { cancelAnimationFrame(x.raf); place(x, 0); } });
+    if (t) run(t);
   };
   // ロード画面：バスが海沿いの道を走り、到着したら開く（最短1.4秒・最長6秒）
   const loader = document.querySelector('.loader');

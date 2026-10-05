@@ -356,3 +356,114 @@ mark { background-size: 0% 100%; background-repeat: no-repeat; transition: backg
 
 .route { left: 34px; right: 34px; }
 .page[data-tone] .pic--map { box-shadow: none; }
+
+:root { --font-title: "Darumadrop One", "Zen Maru Gothic", sans-serif; }
+.ttl { font-family: var(--font-title); font-size: 2.3em; line-height: 1.25; letter-spacing: 0.02em; -webkit-text-stroke: 0; }
+.page--island .ttl { font-size: 1.95em; }
+.msg__big { font-family: var(--font-title); font-size: 1.6em; }
+.bc-glare { stroke: var(--color-paper); stroke-width: 1.6; stroke-linecap: round; }
+
+.route { display: none; }
+.page__inner { padding-bottom: calc(1.2em + 10px); }
+
+.track { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.track__road { fill: none; stroke: var(--color-ink); stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; opacity: 0.9; }
+.track__dash { fill: none; stroke: var(--color-paper); stroke-width: 1.6; stroke-dasharray: 7 7; }
+.page[data-tone="dark"] .track__road { stroke: var(--color-brand-deep); opacity: 1; }
+.page[data-tone="dark"] .track__dash { stroke: var(--color-accent); }
+.track__road, .track__dash { stroke-dashoffset: 0; }
+.track__road { clip-path: inset(0 0 0 0); }
+
+.page .page__inner > .z-l, .page .page__inner > .z-r { margin-top: 1.55em; }
+.page .page__inner > :first-child { margin-top: 0; }
+.z-l { align-self: flex-start; }
+.z-r { align-self: flex-end; }
+.grp.z-l, .grp.z-r { max-width: 90%; }
+.grp.z-r { padding-left: 0.2em; }
+.pic.z-l, .pic.z-r { width: 80%; }
+.pic--map.z-l, .pic--map.z-r { width: 92%; }
+.pic.z-r { transform: rotate(1.6deg); }
+.pic.z-l { transform: rotate(-1.6deg); }
+.pic.z-r .stamp { right: auto; left: -12px; transform: rotate(-8deg); }
+.msg__punch.z-l, .msg__punch.z-r { padding: 0.45em 0.8em; border: 2px solid currentColor; border-radius: var(--wobbly); background: var(--color-paper); }
+.page[data-tone="dark"] .msg__punch.z-l, .page[data-tone="dark"] .msg__punch.z-r { background: var(--color-brand-deep); }
+
+.z-l:not(.pic):not(.ttl) { translate: -18px 0; opacity: 0; transition: translate 600ms var(--ease-out), opacity 300ms linear; transition-delay: 380ms; }
+.z-r:not(.pic):not(.ttl) { translate: 18px 0; opacity: 0; transition: translate 600ms var(--ease-out), opacity 300ms linear; transition-delay: 380ms; }
+.is-active .z-l:not(.pic):not(.ttl), .is-active .z-r:not(.pic):not(.ttl) { translate: 0 0; opacity: 1; }
+.page__inner > :nth-child(3) { transition-delay: 520ms; }
+.page__inner > :nth-child(4) { transition-delay: 660ms; }
+.page__inner > :nth-child(5) { transition-delay: 800ms; }
+.page__inner > :nth-child(6) { transition-delay: 940ms; }
+
+.page--access .page__inner { justify-content: flex-start; }
+@media (max-height: 620px) {
+  .page .page__inner > .z-l, .page .page__inner > .z-r { margin-top: 1.1em; }
+  .page .page__inner > :first-child { margin-top: 0; }
+  .pic.z-l, .pic.z-r { width: 72%; }
+  .pic--map.z-l, .pic--map.z-r { width: 86%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .z-l, .z-r { transition: none !important; translate: 0 0 !important; opacity: 1 !important; }
+}
+
+:root { --font-title: "Potta One", "Zen Maru Gothic", sans-serif; }
+.ttl { font-size: 2.15em; line-height: 1.3; letter-spacing: 0.03em; }
+.page--island .ttl { font-size: 1.8em; letter-spacing: 0; }
+.msg__big { font-size: 1.5em; }
+
+.track__road { stroke: var(--color-accent-tint); stroke-width: 10; opacity: 1; }
+.track__dash { stroke: var(--color-brand); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0.1 8; }
+.page[data-tone="dark"] .track__road { stroke: oklch(100% 0 0 / 0.12); }
+.page[data-tone="dark"] .track__dash { stroke: var(--color-accent); }
+
+.page .page__inner > .z-l, .page .page__inner > .z-r { margin-top: 1.8em; }
+.page .page__inner > :first-child { margin-top: 0; }
+@media (max-height: 620px) {
+  .page .page__inner > .z-l, .page .page__inner > .z-r { margin-top: 1.3em; }
+  .page .page__inner > :first-child { margin-top: 0; }
+}
+
+.postmark { top: calc(var(--header-h) - 4px); right: 10px; width: 3.9em; height: 3.9em; }
+@media (max-height: 620px) {
+  .page .page__inner > .z-l, .page .page__inner > .z-r { margin-top: 1.85em; }
+  .page .page__inner > :first-child { margin-top: 0; }
+  .pic.z-l, .pic.z-r { width: 64%; }
+  .pic--map.z-l, .pic--map.z-r { width: 74%; }
+  .page { line-height: 1.68; }
+}
+
+.grp.z-l, .grp.z-r {
+  padding: 0.6em 0.9em 0.65em; max-width: 92%;
+  background: var(--color-paper); color: var(--color-ink);
+  border: 2px solid var(--color-ink); border-radius: var(--wobbly);
+  box-shadow: 4px 4px 0 var(--color-brand-tint);
+}
+.grp.z-l { rotate: -0.6deg; }
+.grp.z-r { rotate: 0.6deg; }
+.msg__punch.z-l, .msg__punch.z-r { background: var(--color-accent-tint); color: var(--color-brand-deep); border-color: var(--color-ink); box-shadow: 4px 4px 0 var(--color-accent); }
+.page[data-tone="dark"] .grp.z-l, .page[data-tone="dark"] .grp.z-r { background: var(--color-paper); color: var(--color-ink); border-color: var(--color-ink); box-shadow: 4px 4px 0 var(--color-brand-deep); }
+.page[data-tone="dark"] .msg__punch.z-l, .page[data-tone="dark"] .msg__punch.z-r { background: var(--color-accent-tint); color: var(--color-brand-deep); box-shadow: 4px 4px 0 var(--color-accent); }
+.page[data-tone="dark"] .grp mark { background: linear-gradient(transparent 58%, var(--color-accent-tint) 58%) no-repeat 0 0 / 0% 100%; }
+.page[data-tone="dark"].is-active .grp mark { background-size: 100% 100%; }
+.msg__big { color: var(--color-accent-deep); }
+.page[data-tone="dark"] .msg__big { color: var(--color-accent-deep); }
+@media (max-height: 620px) {
+  .grp.z-l, .grp.z-r { padding: 0.45em 0.75em 0.5em; }
+}
+@media (max-height: 620px) {
+  .page--island .pic--map.z-l { width: 60%; }
+  .page--island .page__inner > .z-l, .page--island .page__inner > .z-r { margin-top: 1.7em; }
+  .page--island .page__inner > :first-child { margin-top: 0; }
+}
+
+@media (min-height: 621px) {
+  .pic.z-l, .pic.z-r { width: 70%; }
+  .pic--map.z-l, .pic--map.z-r { width: 80%; }
+  .page .page__inner > .z-l, .page .page__inner > .z-r { margin-top: 1.6em; }
+  .page .page__inner > :first-child { margin-top: 0; }
+}
+@media (min-height: 621px) { .page--about .pic.z-r { width: 60%; } }
+@media (max-height: 620px) { .page--about .pic.z-r { width: 56%; } }
+
+.grp.z-l, .grp.z-r { max-width: 95%; padding-inline: 0.8em; }

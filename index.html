@@ -8,7 +8,7 @@
   <meta name="robots" content="noindex">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Hachi+Maru+Pop&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Potta+One&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="tokens.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -45,10 +45,7 @@
         <rect class="bc-win" x="13" y="18" width="15" height="13" rx="4.5"/>
         <rect class="bc-win" x="32" y="18" width="15" height="13" rx="4.5"/>
         <rect class="bc-win" x="51" y="18" width="12" height="13" rx="4.5"/>
-        <path class="bc-face" d="M68 16h12a10 10 0 0 1 10 10v8H68z"/>
-        <g class="bc-eyes"><ellipse class="bc-eye" cx="74" cy="25.5" rx="3.3" ry="4.3"/><ellipse class="bc-eye" cx="84.5" cy="25.5" rx="3.3" ry="4.3"/><circle class="bc-shine" cx="75.1" cy="23.6" r="1.3"/><circle class="bc-shine" cx="85.6" cy="23.6" r="1.3"/></g>
-        <ellipse class="bc-cheek" cx="70" cy="32.5" rx="3" ry="2"/><ellipse class="bc-cheek" cx="89" cy="32.5" rx="2.4" ry="2"/>
-        <path class="bc-mouth" d="M76.5 32q3 3.4 6 0"/>
+        <path class="bc-face" d="M68 16h12a10 10 0 0 1 10 10v8H68z"/><path class="bc-glare" d="M72 20l-2 6M77 20l-2 6"/>
         <path class="bc-stripe" d="M5 41H91"/>
         <circle class="bc-light" cx="89" cy="46" r="2.4"/>
       </g>
@@ -106,7 +103,8 @@
 
         <section class="page page--about" id="p1" data-tone="light" data-label="ABOUT US" data-stop="会社について">
           <div class="page__inner">
-            <figure class="pic pic--about" aria-hidden="true">
+            <h2 class="ttl z-l" data-chars>青空交通株式会社</h2>
+            <figure class="pic pic--about z-r" aria-hidden="true">
               <svg class="pic__svg" viewBox="0 0 340 142">
                 <g class="il" filter="url(#wob)">
                   <rect class="il-sky" x="0" y="0" width="340" height="104"/>
@@ -127,19 +125,17 @@
               </svg>
               <span class="stamp" aria-hidden="true"><svg viewBox="0 0 40 46"><use href="#buschar" x="3" y="11" width="34" height="24"/></svg></span>
             </figure>
-            <h2 class="ttl" data-chars>青空交通株式会社</h2>
-            <div class="msg">
-              <p class="grp"><span class="ln">青空交通グループは、1972年の設立から50年以上、西表島で観光と島の暮らしを支えてきました。</span></p>
-              <p class="grp"><span class="ln">観光バスや遊覧船、レンタカー、お土産販売といった観光事業だけでなく、</span><span class="ln">路線バス、スーパー、ガソリンスタンド、自動車整備、プロパンガス販売など、</span><span class="ln">島で暮らすために欠かせないサービスも幅広く展開。</span></p>
-              <p class="grp msg__punch"><span class="ln"><mark>観光で訪れる人にも、島で暮らす人にも。</mark></span><span class="ln">島ぬ自然と暮らしを大切に、これからも西表島とともに歩んでいきます。</span></p>
-            </div>
+            <p class="grp z-l"><span class="ln">青空交通グループは、1972年の設立から50年以上、西表島で観光と島の暮らしを支えてきました。</span></p>
+            <p class="grp z-r"><span class="ln">観光バスや遊覧船、レンタカー、お土産販売といった観光事業だけでなく、</span><span class="ln">路線バス、スーパー、ガソリンスタンド、自動車整備、プロパンガス販売など、</span><span class="ln">島で暮らすために欠かせないサービスも幅広く展開。</span></p>
+            <p class="grp msg__punch z-l"><span class="ln"><mark>観光で訪れる人にも、島で暮らす人にも。</mark></span><span class="ln">島ぬ自然と暮らしを大切に、これからも西表島とともに歩んでいきます。</span></p>
           </div>
         </section>
 
         <section class="page page--island" id="p2" data-tone="dark" data-label="ISLAND" data-stop="西表島について">
           <div class="page__inner">
-            <h2 class="ttl" data-chars>西表島ぬこと、知っとーる？</h2>
-            <figure class="pic pic--map" aria-hidden="true">
+            <h2 class="ttl z-l" data-chars>西表島ぬこと、知っとーる？</h2>
+            <p class="grp z-r"><span class="ln">青い海、深い緑、聞こえてくるのは鳥や虫の声。</span><span class="ln">ここは、沖縄・八重山諸島にある西表島。</span></p>
+            <figure class="pic pic--map z-l" aria-hidden="true">
               <svg class="pic__svg" viewBox="0 0 340 168">
                 <g class="il il--dark" filter="url(#wob)">
                   <path class="il-wave-w mv-wave" d="M-20 20q10-5 20 0t20 0 20 0 20 0M250 150q10-5 20 0t20 0 20 0 20 0 20 0M-10 150q10-5 20 0t20 0 20 0"/>
@@ -154,24 +150,19 @@
                 </g>
                 <text class="pic__hand" x="170" y="164">Iriomote Island</text>
                 <text class="pic__hand pic__hand--sm" x="304" y="54">N</text>
-                <g class="map-bus"><use href="#buschar" x="8" y="104" width="62" height="43"/></g>
-                <g class="bubble" transform="translate(64 78)"><path d="M0 12a14 12 0 1 1 8 10l-8 4 2-7a14 12 0 0 1-2-7z"/><text x="14" y="17">?</text></g>
               </svg>
             </figure>
-            <div class="msg">
-              <p class="grp"><span class="ln">青い海、深い緑、聞こえてくるのは鳥や虫の声。</span><span class="ln">ここは、沖縄・八重山諸島にある西表島。</span></p>
-              <p class="grp"><span class="ln">島の<mark>約9割を亜熱帯の森</mark>が占め、</span><span class="ln">マングローブが広がる川をカヌーで進んだり、</span><span class="ln">手つかずの自然の中で生きものに出会ったり。</span></p>
-              <p class="grp msg__punch"><span class="ln">大自然のすぐ隣に、ちゃんと人の暮らしがある。</span></p>
-              <p class="grp"><span class="ln">そんな、自然と暮らしがすぐそばにある島。</span><span class="ln msg__big">それが、西表島。</span></p>
-            </div>
+            <p class="grp z-r"><span class="ln">島の<mark>約9割を亜熱帯の森</mark>が占め、</span><span class="ln">マングローブが広がる川をカヌーで進んだり、</span><span class="ln">手つかずの自然の中で生きものに出会ったり。</span></p>
+            <p class="grp msg__punch z-l"><span class="ln">大自然のすぐ隣に、ちゃんと人の暮らしがある。</span></p>
+            <p class="grp z-r"><span class="ln">そんな、自然と暮らしがすぐそばにある島。</span><span class="ln msg__big">それが、西表島。</span></p>
           </div>
         </section>
 
         <section class="page page--access" id="p3" data-tone="light" data-label="ACCESS" data-stop="交通手段">
           <div class="page__inner">
-            <h2 class="ttl" data-chars>車とバスが、島の足。</h2>
-            <p class="grp msg__lead"><span class="ln">そんな西表島の暮らしには、車やバスは欠かせない。</span><span class="ln">必要不可欠の交通手段。</span></p>
-            <figure class="pic pic--road" aria-hidden="true">
+            <h2 class="ttl z-l" data-chars>車とバスが、島の足。</h2>
+            <p class="grp msg__lead z-r"><span class="ln">そんな西表島の暮らしには、車やバスは欠かせない。</span><span class="ln">必要不可欠の交通手段。</span></p>
+            <figure class="pic pic--road z-l" aria-hidden="true">
               <svg class="pic__svg" viewBox="0 0 340 150">
                 <g class="il" filter="url(#wob)">
                   <rect class="il-sea" x="0" y="0" width="340" height="150"/>
@@ -200,11 +191,9 @@
               </svg>
               <span class="stamp stamp--accent" aria-hidden="true"><svg viewBox="0 0 40 46"><circle class="stamp__wheel" cx="20" cy="22" r="11"/><circle class="stamp__wheel" cx="20" cy="22" r="4"/></svg></span>
             </figure>
-            <div class="msg">
-              <p class="grp"><span class="ln">集落は島の沿岸部に点在し、日々の移動には距離がある。</span></p>
-              <p class="grp"><span class="ln">通勤や通学、買い物はもちろん、</span><span class="ln">仕事で人や荷物を運ぶときにも車が必要になる。</span></p>
-              <p class="grp msg__punch"><span class="ln">西表島では、車が「移動手段」ではなく、</span><span class="ln"><mark>暮らしを動かすための大切な足</mark>になっています。</span></p>
-            </div>
+            <p class="grp z-r"><span class="ln">集落は島の沿岸部に点在し、日々の移動には距離がある。</span></p>
+            <p class="grp z-l"><span class="ln">通勤や通学、買い物はもちろん、</span><span class="ln">仕事で人や荷物を運ぶときにも車が必要になる。</span></p>
+            <p class="grp msg__punch z-r"><span class="ln">西表島では、車が「移動手段」ではなく、</span><span class="ln"><mark>暮らしを動かすための大切な足</mark>になっています。</span></p>
           </div>
         </section>
 
