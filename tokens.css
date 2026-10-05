@@ -1,0 +1,47 @@
+:root {
+  
+  --color-brand: #303ec9;
+  --color-accent: #10c6b1;
+
+  
+  --color-paper: #ffffff;
+  --color-cream: oklch(98.6% 0.012 95);
+  --color-ink: oklch(25% 0.11 268);
+  --color-ink-soft: oklch(42% 0.08 268);
+  --color-brand-deep: oklch(30% 0.16 268);
+  --color-brand-tint: oklch(90% 0.05 268);
+  --color-brand-wash: oklch(95.5% 0.025 268);
+  --color-accent-tint: oklch(91% 0.07 180);
+  --color-accent-deep: oklch(52% 0.11 180);
+  --color-on-brand: #ffffff;
+  --color-on-brand-soft: oklch(100% 0 0 / 0.78);
+  --color-line: oklch(30% 0.12 268 / 0.18);
+  --color-line-on-brand: oklch(100% 0 0 / 0.3);
+  --color-shadow: oklch(20% 0.12 268 / 0.4);
+
+  
+  --font-body: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Hiragino Sans", system-ui, sans-serif;
+  --font-title: "Yusei Magic", "Zen Maru Gothic", sans-serif;
+  --font-hand: "Caveat", "Zen Maru Gothic", cursive;
+
+  
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  
+  --col: 480px;
+  --header-h: 60px;
+  --route-h: 46px;
+  --wobbly: 255px 18px 225px 18px / 18px 225px 18px 255px;
+
+  
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 160ms;
+  --dur-base: 520ms;
+}
