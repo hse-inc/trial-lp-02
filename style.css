@@ -282,3 +282,77 @@ mark { background-size: 0% 100%; background-repeat: no-repeat; transition: backg
 }
 
 .page--island .ttl { font-size: 1.8em; letter-spacing: 0.02em; }
+
+.ttl { font-family: var(--font-title); font-weight: 400; font-size: 2em; letter-spacing: 0.02em; line-height: 1.35; }
+.page--island .ttl { font-size: 1.72em; letter-spacing: 0; }
+.ttl .ch:nth-child(odd) { rotate: -2deg; }
+.ttl .ch:nth-child(even) { rotate: 2deg; translate: 0 0.04em; }
+.msg__big { font-family: var(--font-title); }
+
+.bc-shadow { fill: var(--color-ink); opacity: 0.16; }
+.bc-shell { fill: var(--color-paper); stroke: var(--color-ink); stroke-width: 2.4; }
+.bc-sign { fill: var(--color-brand); stroke: var(--color-ink); stroke-width: 2; }
+.bc-sign-dot { stroke: var(--color-accent); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 0.1 5; }
+.bc-win { fill: var(--color-brand-tint); stroke: var(--color-ink); stroke-width: 1.8; }
+.bc-face { fill: var(--color-accent-tint); stroke: var(--color-ink); stroke-width: 1.8; stroke-linejoin: round; }
+.bc-eye { fill: var(--color-ink); }
+.bc-shine { fill: var(--color-paper); }
+.bc-cheek { fill: var(--color-cheek); }
+.bc-mouth { fill: none; stroke: var(--color-ink); stroke-width: 1.8; stroke-linecap: round; }
+.bc-stripe { stroke: var(--color-accent); stroke-width: 5; }
+.bc-light { fill: var(--color-accent); stroke: var(--color-ink); stroke-width: 1.2; }
+.bc-tire { fill: var(--color-ink); }
+.bc-hub { fill: var(--color-paper); }
+.bc-spoke { stroke: var(--color-paper); stroke-width: 1.4; stroke-linecap: round; }
+.bc-body { transform-box: fill-box; transform-origin: 50% 100%; animation: bc-bounce 0.62s var(--ease-in-out) infinite; }
+@keyframes bc-bounce { 0%, 100% { transform: translateY(0) scaleY(1); } 50% { transform: translateY(-1.6px) scaleY(1.015); } }
+.bc-wheel { transform-box: fill-box; transform-origin: center; animation: bc-spin 0.9s linear infinite; }
+@keyframes bc-spin { to { transform: rotate(360deg); } }
+.bc-eyes { transform-box: fill-box; transform-origin: center; animation: bc-blink 3.8s steps(1) infinite; }
+@keyframes bc-blink { 0%, 44%, 49%, 100% { transform: scaleY(1); } 45%, 48% { transform: scaleY(0.12); } }
+.mv-bus { animation: none; }
+
+.map-bus { animation: map-bus 3.2s var(--ease-in-out) infinite; }
+@keyframes map-bus { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+.route__bus { top: -14px; width: 42px; height: 30px; margin-left: -21px; }
+.route__bus svg { animation: none; }
+.nextstop__bus { width: 2.4em; height: 1.7em; animation: none; }
+
+.loader {
+  position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+  background: var(--color-brand); color: var(--color-on-brand);
+  transition: opacity 500ms linear, visibility 0s linear 500ms;
+}
+.loader.is-done { opacity: 0; visibility: hidden; }
+.loader__in { position: relative; width: min(86vw, 380px); }
+.loader__scene { display: block; width: 100%; height: auto; overflow: visible; }
+.loader__sun { fill: var(--color-paper); stroke: var(--color-ink); stroke-width: 1.8; }
+.loader__land { fill: var(--color-accent); stroke: var(--color-ink); stroke-width: 1.8; stroke-linejoin: round; }
+.loader__road { fill: none; stroke: var(--color-ink); stroke-width: 9; stroke-linecap: round; }
+.loader__dash { fill: none; stroke: var(--color-paper); stroke-width: 1.4; stroke-dasharray: 6 6; }
+.loader__wave { fill: none; stroke: var(--color-line-on-brand); stroke-width: 2; stroke-linecap: round; animation: wave 2.6s linear infinite; }
+.loader__stop path { stroke: var(--color-ink); stroke-width: 2.4; stroke-linecap: round; }
+.loader__stop circle { fill: var(--color-accent-tint); stroke: var(--color-ink); stroke-width: 2; }
+.loader__track { position: absolute; left: 4%; right: 10%; top: 31%; height: 0; }
+.loader__bus { position: absolute; left: 0; bottom: 0; width: 23%; aspect-ratio: 100 / 70; margin-left: -11.5%; }
+.loader__bus svg { display: block; width: 100%; height: 100%; }
+.loader__txt { margin-top: 18px; text-align: center; font-family: var(--font-hand); font-weight: 700; font-size: 26px; letter-spacing: 0.06em; color: var(--color-accent); }
+.loader__txt i { font-style: normal; display: inline-block; animation: ld-dot 1.2s var(--ease-in-out) infinite; }
+.loader__txt i:nth-child(2) { animation-delay: 0.15s; } .loader__txt i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes ld-dot { 0%, 60%, 100% { transform: none; } 30% { transform: translateY(-6px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .bc-body, .bc-wheel, .bc-eyes, .map-bus, .loader__wave, .loader__txt i { animation: none; }
+  .loader { transition: none; }
+}
+
+.loader__stage { position: relative; }
+.loader__track { left: 6%; right: 12%; top: 71%; }
+.loader__bus { width: 26%; margin-left: -13%; }
+
+.ttl { font-size: 2.15em; -webkit-text-stroke: 0.035em currentColor; paint-order: stroke fill; }
+.page--island .ttl { font-size: 1.78em; }
+
+.route { left: 34px; right: 34px; }
+.page[data-tone] .pic--map { box-shadow: none; }

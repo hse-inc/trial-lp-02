@@ -42,7 +42,7 @@
     a.className = 'nextstop';
     a.href = '#' + next.id;
     a.setAttribute('aria-label', '次のページへ進む');
-    a.innerHTML = '<svg class="nextstop__bus" viewBox="0 0 66 36" aria-hidden="true"><use href="#bus"/></svg>'
+    a.innerHTML = '<svg class="nextstop__bus" viewBox="0 0 100 70" aria-hidden="true"><use href="#buschar"/></svg>'
       + '<span aria-hidden="true"><small>Next stop</small>' + next.dataset.stop + '</span>';
     a.addEventListener('click', (e) => { e.preventDefault(); next.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
     pg.querySelector('.page__inner').appendChild(a);
@@ -62,7 +62,7 @@
   });
   const bus = document.createElement('b');
   bus.className = 'route__bus';
-  bus.innerHTML = '<svg viewBox="0 0 66 36"><use href="#bus"/></svg>';
+  bus.innerHTML = '<svg viewBox="0 0 100 70"><use href="#buschar"/></svg>';
   route.appendChild(bus);
   column.appendChild(route);
 
@@ -74,6 +74,35 @@
     bus.style.left = stops[k].style.left;
     stops.forEach((s, j) => s.classList.toggle('is-past', j <= k));
   };
+  // ロード画面：バスが海沿いの道を走り、到着したら開く（最短1.4秒・最長6秒）
+  const loader = document.querySelector('.loader');
+  if (loader) {
+    const lbus = loader.querySelector('.loader__bus');
+    const t0 = performance.now();
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let loaded = false, done = false, shown = 0;
+    const finish = () => {
+      if (done) return;
+      done = true;
+      lbus.style.left = '100%';
+      setTimeout(() => { loader.classList.add('is-done'); setTimeout(() => loader.remove(), 700); }, reduce ? 0 : 650);
+    };
+    const tick = () => {
+      if (done) return;
+      const t = performance.now() - t0;
+      // 読み込み中は9割手前までゆっくり進み、読み込みが終わったら残りを走りきる
+      const target = loaded ? 100 : 88 * (1 - Math.exp(-t / 1600));
+      shown += (target - shown) * 0.12;
+      lbus.style.left = shown.toFixed(2) + '%';
+      if ((loaded && t > 1400 && shown > 97) || t > 6000) { finish(); return; }
+      requestAnimationFrame(tick);
+    };
+    window.addEventListener('load', () => { loaded = true; });
+    if (document.readyState === 'complete') loaded = true;
+    requestAnimationFrame(tick);
+    setTimeout(finish, 6500); // 画面が裏に回って描画が止まっても必ず開く
+  }
+
   const mo = new MutationObserver(onActive);
   pages.forEach((p) => mo.observe(p, { attributes: true, attributeFilter: ['class'] }));
   onActive();
