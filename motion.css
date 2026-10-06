@@ -1,0 +1,76 @@
+.ttl .w { transition: none; opacity: 0; }
+.is-active .ttl .w {
+  opacity: 1;
+  animation:
+    w-drop 720ms var(--ease-out) calc(var(--c, 0) * 130ms + 150ms) both,
+    koteko 1.1s steps(1) calc(var(--c, 0) * -0.37s + 1s) infinite;
+}
+@keyframes w-drop {
+  0% { transform: translateY(-140%) rotate(-14deg); opacity: 0; }
+  45% { transform: translateY(6%) rotate(4deg) scale(1.08, 0.86); opacity: 1; }
+  65% { transform: translateY(-10%) rotate(-2deg) scale(0.96, 1.06); }
+  82% { transform: translateY(2%) scale(1.02, 0.98); }
+  100% { transform: none; opacity: 1; }
+}
+
+.card, .punch, .lead, .island__end, .blob, .scene--band, .cat { transition: none; }
+.card { opacity: 0; }
+.is-active .card { animation: card-slap 560ms var(--ease-out) 380ms both; }
+.is-active .page__inner > .card:nth-of-type(2), .is-active .island + .card { animation-delay: 560ms; }
+@keyframes card-slap {
+  0% { opacity: 0; transform: scale(1.22) rotate(5deg) translateY(-10px); box-shadow: 14px 18px 0 oklch(25% 0.11 268 / 0.25); }
+  55% { opacity: 1; transform: scale(0.97) rotate(-0.6deg); box-shadow: 2px 2px 0 var(--color-ink); }
+  78% { transform: scale(1.01); }
+  100% { opacity: 1; transform: none; box-shadow: 4px 5px 0 var(--color-ink); }
+}
+
+.card .ln, .lead .ln, .island__end .ln:not(.big) { position: relative; opacity: 0; transform: none; transition: none; }
+.card .ln::after, .lead .ln::after, .island__end .ln:not(.big)::after {
+  content: ""; position: absolute; left: -0.15em; right: -0.15em; top: 0.15em; bottom: 0.15em; z-index: 1;
+  background: var(--color-accent); border-radius: 3px; transform: scaleX(0); pointer-events: none;
+}
+.is-active .card .ln, .is-active .lead .ln, .is-active .island__end .ln:not(.big) { animation: ln-text 1ms linear calc(var(--i, 0) * 110ms + 900ms) both; }
+.is-active .card .ln::after, .is-active .lead .ln::after, .is-active .island__end .ln:not(.big)::after { animation: ln-marker 600ms var(--ease-in-out) calc(var(--i, 0) * 110ms + 600ms) both; }
+@keyframes ln-text { to { opacity: 1; } }
+@keyframes ln-marker {
+  0% { transform: scaleX(0); transform-origin: 0 50%; }
+  48% { transform: scaleX(1); transform-origin: 0 50%; }
+  52% { transform: scaleX(1); transform-origin: 100% 50%; }
+  100% { transform: scaleX(0); transform-origin: 100% 50%; }
+}
+
+.card .ln, .lead .ln, .island__end .ln:not(.big) { opacity: 1; color: transparent; }
+.page[data-tone="dark"] .island__end .ln:not(.big) { color: transparent; }
+@keyframes ln-text { to { color: inherit; } }
+.is-active .card .ln, .is-active .lead .ln { animation-name: ln-text-ink; }
+.is-active .island__end .ln:not(.big) { animation-name: ln-text-paper; }
+@keyframes ln-text-ink { to { color: var(--color-ink); } }
+@keyframes ln-text-paper { to { color: var(--color-on-brand); } }
+.card mark { color: inherit; }
+
+.punch { opacity: 0; }
+.is-active .punch { animation: punch-jelly 760ms var(--ease-out) 1250ms both; }
+@keyframes punch-jelly {
+  0% { opacity: 0; transform: scale(0.4); }
+  40% { opacity: 1; transform: scale(1.12, 0.9); }
+  60% { transform: scale(0.94, 1.06); }
+  78% { transform: scale(1.03, 0.98); }
+  100% { opacity: 1; transform: none; }
+}
+.punch .ln { opacity: 1; }
+
+.big--hero::before { clip-path: inset(0 100% 0 0); }
+.is-active .big--hero::before { animation: band-paint 520ms var(--ease-in-out) 1500ms both; }
+@keyframes band-paint { to { clip-path: inset(0 0 0 0); } }
+.big--hero .big__txt { opacity: 0; }
+.is-active .big--hero .big__txt { animation: stamp 420ms cubic-bezier(0.2, 1.4, 0.4, 1) 1950ms both, koteko 1.2s steps(1) 2.4s infinite; }
+@keyframes stamp { 0% { opacity: 0; transform: scale(2.4) rotate(-8deg); } 70% { opacity: 1; transform: scale(0.92); } 100% { opacity: 1; transform: none; } }
+
+.blob, .scene--band, .cat { opacity: 0; }
+.is-active .blob, .is-active .scene--band, .is-active .cat { animation: pop-in 620ms var(--ease-back) 300ms both; }
+@keyframes pop-in { 0% { opacity: 0; transform: scale(0.6) rotate(-6deg); } 100% { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ttl .w, .card, .card .ln, .lead .ln, .island__end .ln, .punch, .big--hero .big__txt, .blob, .scene--band, .cat { opacity: 1 !important; animation: none !important; clip-path: none !important; }
+  .card .ln::after, .lead .ln::after, .island__end .ln::after, .big--hero::before { animation: none !important; transform: scaleX(0); clip-path: none; }
+}

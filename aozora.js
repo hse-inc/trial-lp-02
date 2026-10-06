@@ -70,6 +70,26 @@
     setTimeout(finish, 6500); // 画面が裏に回って描画が止まっても必ず開く
   }
 
+  // 1Pのバスとヤマネコ：締めの枠と重なる画面サイズでは小さくし、それでも入らなければ出さない
+  const buscat = document.querySelector('.p1-buscat');
+  const punch = buscat && buscat.closest('.page').querySelector('.punch');
+  const fitBuscat = () => {
+    if (!punch) return;
+    buscat.style.width = '';
+    buscat.style.visibility = '';
+    if (getComputedStyle(buscat).display === 'none') return;
+    const b = buscat.getBoundingClientRect();
+    const gap = b.top - punch.getBoundingClientRect().bottom;
+    if (gap >= 10 || !b.height) return;
+    const h = b.height - (10 - gap);
+    if (h < 70) { buscat.style.visibility = 'hidden'; return; }
+    buscat.style.width = (b.width * h / b.height).toFixed(1) + 'px';
+  };
+  addEventListener('resize', fitBuscat);
+  addEventListener('load', fitBuscat);
+  if (document.fonts) document.fonts.ready.then(fitBuscat);
+  fitBuscat();
+
   const mo = new MutationObserver(onActive);
   pages.forEach((p) => mo.observe(p, { attributes: true, attributeFilter: ['class'] }));
   onActive();
