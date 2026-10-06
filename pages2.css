@@ -94,7 +94,7 @@
   background-position: 0 0.1em;
 }
 .pcard__body .ln { line-height: 1.62; }
-.st-pc-palm--a { right: -1.4em; top: calc(var(--header-h) - 1.4em); width: 6.4em; --r: 8deg; }
+.st-pc-palm--a { right: -1.4em; top: calc(var(--header-h) - 1.4em); width: 6.4em; --r: 8deg; z-index: 0 !important; }
 .st-pc-palm--b { left: -1.8em; bottom: -1.2em; width: 5.6em; --r: -10deg; }
 
 .page--day { --g: 0.7em; --sg: 0.38em; font-size: clamp(10.5px, min(1.86dvh, 3.15vw), 13.2px); }
