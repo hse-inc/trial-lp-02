@@ -610,3 +610,7 @@ mark { color: inherit; padding: 0 0.1em; font-weight: 700; background: linear-gr
 @media (max-height: 719px) { .sticker--a6, .bd-lspark--2, .bd-spark--3 { display: none; } }
 @media (max-height: 719px) { .bd-spark--2 { display: none; } }
 .bd-lspark--1 { left: 3px; width: 0.85em; top: calc(var(--header-h) + 21dvh - 0.4em); }
+
+.talk .bubble { width: fit-content; max-width: 100%; justify-self: start; font-size: 1.85em; padding: 0.35em 0.7em 0.42em 0.6em; }
+.talk .bubble { width: max-content; max-width: 100%; font-size: 2.05em; }
+.talk .bubble .w--2 { display: block; width: fit-content; }
