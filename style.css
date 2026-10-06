@@ -609,3 +609,4 @@ mark { color: inherit; padding: 0 0.1em; font-weight: 700; background: linear-gr
 .page--about .card .ln { line-height: 1.68; }
 @media (max-height: 719px) { .sticker--a6, .bd-lspark--2, .bd-spark--3 { display: none; } }
 @media (max-height: 719px) { .bd-spark--2 { display: none; } }
+.bd-lspark--1 { left: 3px; width: 0.85em; top: calc(var(--header-h) + 21dvh - 0.4em); }
