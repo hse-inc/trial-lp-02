@@ -64,14 +64,22 @@
 
   // ホイール・トラックパッドは1回の操作で1ページだけ送る（通常スクロールにしない）
   let locked = false, acc = 0, accTimer = null;
-  const canScrollInside = (target, dy) => {
+  // 内側で縦スクロールするページ（.page--scroll）：内側に動ける間は内側を優先する。
+  // 端に着いた直後（慣性の続き）は、次のページへ送らず止める。端で一度止まってからの操作で次/前へ送る
+  const insideScroll = (target, dy) => {
     const box = target.closest && target.closest('.page--scroll');
-    if (!box) return false;
-    return dy > 0 ? box.scrollTop + box.clientHeight < box.scrollHeight - 1 : box.scrollTop > 0;
+    if (!box) return null;
+    const now = performance.now();
+    const can = dy > 0 ? box.scrollTop + box.clientHeight < box.scrollHeight - 1 : box.scrollTop > 0;
+    if (can) { box.__t = now; return 'scroll'; }
+    if (box.__t && now - box.__t < 450) { box.__t = now; return 'hold'; }
+    return null;
   };
   window.addEventListener('wheel', (e) => {
     if (e.ctrlKey) return;
-    if (canScrollInside(e.target, e.deltaY)) return;
+    const inside = insideScroll(e.target, e.deltaY);
+    if (inside === 'scroll') return;
+    if (inside === 'hold') { e.preventDefault(); return; }
     // 横スクロールのカード上での横方向の操作はそのまま通す
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && e.target.closest && e.target.closest('.route__track')) return;
     e.preventDefault();

@@ -73,4 +73,7 @@
 @media (prefers-reduced-motion: reduce) {
   .ttl .w, .card, .card .ln, .lead .ln, .island__end .ln, .punch, .big--hero .big__txt, .blob, .scene--band, .cat { opacity: 1 !important; animation: none !important; clip-path: none !important; }
   .card .ln::after, .lead .ln::after, .island__end .ln::after, .big--hero::before { animation: none !important; transform: scaleX(0); clip-path: none; }
+  
+  .card .ln, .lead .ln { color: var(--ln-c, var(--color-ink)) !important; }
+  .island__end .ln:not(.big) { color: var(--color-on-brand) !important; }
 }
