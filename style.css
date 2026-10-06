@@ -407,3 +407,36 @@ mark { color: inherit; padding: 0 0.1em; font-weight: 700; background: linear-gr
 @media (max-height: 620px) { .town { top: calc((27dvh - min(100vw, var(--col)) / 1.5) * 0.62); } }
 @media (prefers-reduced-motion: reduce) { .tw { animation: none; } }
 .scene .town .tw { height: auto; object-fit: initial; display: block; }
+
+.sticker img { display: block; width: 100%; height: auto; }
+.sticker { width: 3em; }
+.sticker--a1 { width: 3.2em; } .sticker--a2 { width: 3.4em; } .sticker--b1 { width: 3.6em; } .sticker--b2 { width: 2.6em; }
+.sticker--c1 { width: 3em; } .sticker--c2 { width: 2.8em; }
+.scene--band img { object-position: 50% 55%; }
+
+.mv { position: absolute; left: var(--x0); bottom: var(--b); width: var(--w); pointer-events: none; animation: mv-go var(--t) linear var(--d) infinite; }
+.mv img { display: block; width: 100%; height: auto; }
+.scene .town .mv img { height: auto; object-fit: initial; }
+@keyframes mv-go {
+  0% { left: var(--x0); opacity: 0; } 4% { opacity: 1; } 96% { opacity: 1; } 100% { left: var(--x1); opacity: 0; }
+}
+.mv-flip img { transform: scaleX(-1); }
+
+.mv-walk img { animation: mv-step 0.42s var(--ease-in-out) infinite alternate; transform-origin: 50% 100%; }
+.mv-walk.mv-flip img { animation-name: mv-step-flip; }
+@keyframes mv-step { from { translate: 0 0; rotate: -3deg; } to { translate: 0 -6%; rotate: 3deg; } }
+@keyframes mv-step-flip { from { transform: scaleX(-1); translate: 0 0; rotate: 3deg; } to { transform: scaleX(-1); translate: 0 -6%; rotate: -3deg; } }
+
+.mv-bus img, .mv-car img { animation: mv-rumble 0.22s steps(2) infinite; }
+.mv-car.mv-flip img { animation-name: mv-rumble-flip; }
+@keyframes mv-rumble { 50% { translate: 0 -2%; } }
+@keyframes mv-rumble-flip { 0%, 100% { transform: scaleX(-1); } 50% { transform: scaleX(-1); translate: 0 -2%; } }
+
+.mv-cat { animation: none; opacity: 1; }
+.mv-cat img { transform-origin: 50% 100%; animation: tw-wave 0.8s var(--ease-in-out) infinite alternate; }
+@media (prefers-reduced-motion: reduce) { .mv, .mv img { animation: none !important; opacity: 1; } }
+
+@keyframes mv-go {
+  0% { left: var(--x0); opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: var(--x1); opacity: 0; }
+}
+.town { overflow: hidden; }
