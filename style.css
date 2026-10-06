@@ -457,7 +457,8 @@ mark { color: inherit; padding: 0 0.1em; font-weight: 700; background: linear-gr
   .page--about .punch { margin-top: 0.9em; }
 }
 
-.ttl .w, .big { display: inline-block; transform-origin: 50% 85%; animation: koteko 1.1s steps(1) infinite; animation-delay: calc(var(--c, 0) * -0.37s); }
+.ttl .w, .big { display: inline-block; transform-origin: 50% 85%; }
+.big { animation: koteko 1.1s steps(1) infinite; animation-delay: calc(var(--c, 0) * -0.37s); }
 .big { animation-duration: 1.3s; }
 @keyframes koteko {
   0% { rotate: -4deg; translate: 0 0; }

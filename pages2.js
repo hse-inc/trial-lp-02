@@ -53,53 +53,20 @@
       .observe(pg, { attributes: true, attributeFilter: ['class'] });
   });
 
-  // ---- 11P エントリー：フォーカスした欄へ照準。送信先は未定のため送らない ----
+  // ---- 11P エントリー：入力中の欄の見出しに色を付ける。送信先は未定のため送らない ----
   const page = document.getElementById('entry');
   const form = page && $('.entry', page);
   if (form) {
     const fields = [...form.querySelectorAll('.entry__f')];
-    const reticle = document.createElement('div');
-    reticle.className = 'reticle';
-    reticle.setAttribute('aria-hidden', 'true');
-    reticle.innerHTML = '<i></i><i></i><i></i><i></i>';
-    page.appendChild(reticle);
-    const corners = [...reticle.querySelectorAll('i')];
-    let tour = null, ti = 0, focused = false;
-    const lockOn = (el) => {
-      const c = page.getBoundingClientRect(), r = el.getBoundingClientRect();
-      const x = r.left - c.left - 6, y = r.top - c.top - 5, w = r.width + 12, h = r.height + 10;
-      [[x, y], [x + w, y], [x, y + h], [x + w, y + h]].forEach((p, i) => {
-        corners[i].style.transform = `translate(${p[0].toFixed(1)}px, ${p[1].toFixed(1)}px)`;
-      });
-    };
-    const stopTour = () => { clearInterval(tour); tour = null; };
-    const startTour = () => {
-      stopTour();
-      focused = false;
-      ti = 0;
-      const next = () => { if (focused) return; lockOn(fields[ti % fields.length]); ti++; };
-      setTimeout(next, 900);
-      if (!reduce) tour = setInterval(next, 1700);
-    };
     form.addEventListener('focusin', (e) => {
       const f = e.target.closest && e.target.closest('.entry__f');
       if (!f) return;
-      focused = true; stopTour();
       fields.forEach((x) => x.classList.toggle('is-focus', x === f));
-      lockOn(f);
     });
     form.addEventListener('focusout', (e) => {
       const f = e.target.closest && e.target.closest('.entry__f');
       if (f && !f.contains(e.relatedTarget)) f.classList.remove('is-focus');
     });
-    new MutationObserver(() => {
-      if (page.classList.contains('is-active')) startTour(); else stopTour();
-    }).observe(page, { attributes: true, attributeFilter: ['class'] });
-    addEventListener('resize', () => {
-      const f = fields.find((x) => x.classList.contains('is-focus')) || fields[Math.max(0, ti - 1) % fields.length];
-      if (f && page.classList.contains('is-active')) lockOn(f);
-    });
-    if (page.classList.contains('is-active')) startTour();
 
     // 送信先が決まるまでは送らない（押すと案内を出すだけ）
     const msg = $('.entry__msg', form);

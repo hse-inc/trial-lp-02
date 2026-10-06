@@ -1,9 +1,7 @@
 .ttl .w { transition: none; opacity: 0; }
 .is-active .ttl .w {
   opacity: 1;
-  animation:
-    w-drop 720ms var(--ease-out) calc(var(--c, 0) * 130ms + 150ms) both,
-    koteko 1.1s steps(1) calc(var(--c, 0) * -0.37s + 1s) infinite;
+  animation: w-drop 720ms var(--ease-out) calc(var(--c, 0) * 130ms + 150ms) both;
 }
 @keyframes w-drop {
   0% { transform: translateY(-140%) rotate(-14deg); opacity: 0; }

@@ -26,7 +26,7 @@
 .is-active .voice__who { animation: pop-in 620ms var(--ease-back) 500ms both, cat-bob 2.8s var(--ease-in-out) 1.2s infinite alternate; }
 
 .page--work .photo {
-  position: relative; z-index: 2; align-self: center; width: min(72%, 30dvh); margin-block: 0.15em;
+  position: relative; z-index: 2; align-self: center; width: min(94%, 39dvh); margin-block: 0.9em 0.3em;
   padding: 4px; background: var(--color-paper); border: 3px solid var(--color-ink); border-radius: 4px;
   box-shadow: 4px 5px 0 var(--color-ink); rotate: -2deg;
 }
@@ -244,19 +244,12 @@
 .entry__f:nth-child(1) { --k: 0; } .entry__f:nth-child(2) { --k: 1; } .entry__f:nth-child(3) { --k: 2; }
 .entry__f:nth-child(4) { --k: 3; } .entry__f:nth-child(5) { --k: 4; } .entry__f:nth-child(6) { --k: 5; }
 @keyframes ef-in { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: none; } }
-.reticle { position: absolute; inset: 0; z-index: 12; pointer-events: none; color: var(--color-accent); transition: opacity 300ms linear; }
-.page--entry:not(.is-active) .reticle { opacity: 0; }
-.reticle i { position: absolute; left: 0; top: 0; width: 14px; height: 14px; margin: -3px; border: 2.5px solid currentColor; transition: transform 560ms var(--ease-out); }
-.reticle i:nth-child(1) { border-right: 0; border-bottom: 0; }
-.reticle i:nth-child(2) { border-left: 0; border-bottom: 0; margin-left: -11px; }
-.reticle i:nth-child(3) { border-right: 0; border-top: 0; margin-top: -11px; }
-.reticle i:nth-child(4) { border-left: 0; border-top: 0; margin: -11px 0 0 -11px; }
 .st-11a { right: -6px; top: calc(var(--header-h) + 0.2em); width: 3em; --r: 14deg; }
 .st-11b { left: 6px; top: calc(var(--header-h) + 0.4em); width: 2.4em; --r: -10deg; }
 
 @media (max-height: 620px) {
   .page--work { --g: 0.45em; }
-  .page--work .photo { width: min(66%, 27dvh); }
+  .page--work .photo { width: min(86%, 36dvh); }
   .pcard { gap: 0.25em 0.8em; padding: 0.55em 0.7em 0.6em; }
   .pcard__body, .pcard__body .ln { line-height: 1.5; }
   .pcard__body { background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(1.5em - 2px), var(--color-brand-tint) calc(1.5em - 2px), var(--color-brand-tint) 1.5em); }
@@ -274,8 +267,7 @@
   .photo, .pcard__photo, .voice__who, .entry__f, .pcard, .want, .voice__say { opacity: 1 !important; animation: none !important; }
   .route__bus, .route__bus svg { transition: none !important; }
   .stop__pin::after { transition: none; }
-  .reticle i { transition: none; }
-}
+  }
 
 .pcard .pcard__t { position: static; }
 .pcard__t .w:first-child { position: absolute; top: 1.75em; margin: 0; font-size: 0.8em; color: var(--color-ink) !important; }
